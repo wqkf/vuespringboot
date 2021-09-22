@@ -15,24 +15,21 @@
         @change-detail="onChangeDetail"
       />
     </van-popup>
-    
-      <van-swipe-cell>
+    <div  v-for="cart in carts">
+      <van-swipe-cell >
           <van-checkbox v-model="checked"/>
         <van-card
-          num="2"
-          price="2.00"
-          desc="描述信息"
-          title="商品标题"
-          class="goods-card"
-          thumb="https://img01.yzcdn.cn/vant/cat.jpeg"
+          :num="cart.shuliang"
+          :price="cart.price"
+          :desc="cart.jianjie"
+          :title="cart.name"
+          :thumb="cart.img"
         />
-
         <template #right>
           <van-button square text="删除" type="danger" class="delete-button"/>
         </template>
       </van-swipe-cell>
- 
-
+    </div>
     <van-submit-bar :price="3050" button-text="提交订单" @submit="onSubmit">
       <van-checkbox v-model="checked">全选</van-checkbox>
       <template #tip>
@@ -47,7 +44,30 @@ export default {
     return {
       checked: true,
       searchResult: [],
-      show: false
+      show: false,
+      carts:[
+          {
+           shuliang:"21",
+          price:"2.00",
+          jianjie:"描述信息",
+          name:"商品标题",
+          img:"https://img01.yzcdn.cn/vant/cat.jpeg"
+      },
+       {
+           shuliang:"31",
+          price:"21.00",
+          jianjie:"描述信息",
+          name:"商品标题",
+          img:"https://img01.yzcdn.cn/vant/cat.jpeg"
+      },
+      {
+           shuliang:"41",
+          price:"22.00",
+          jianjie:"描述信息",
+          name:"商品标题",
+          img:"https://img01.yzcdn.cn/vant/cat.jpeg"
+      },
+      ]
     };
   },
 
@@ -55,6 +75,19 @@ export default {
     showPopup() {
       this.show = true;
     }
+  },
+  created: function(){
+      this.$axios
+      .get('carts')
+      .then(res=>{
+          if(res.data.statusCode==200){
+              alert(res);
+              this.carts=res.data.data;
+          }
+      })
+      .catch(error=>{
+          console.log(error);
+      })
   },
   onSave() {
     Toast("save");
