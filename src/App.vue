@@ -16,6 +16,12 @@
 <script>
 export default {
   name: 'App'
+  ,data() {
+    return {
+      active: 0,
+    };
+  },
+  
 }
 </script>
 

@@ -7,7 +7,7 @@
     :thumb="book.img"
 >
   <template #tags>
-   <van-cell title="作者" :value="book.actor"  class="actor"/>
+   <van-cell title="作者" :value="book.actor"  class="actor1"/>
    <van-cell  :value="book.jianjie" class="jianjie"/>
   </template>
   
@@ -63,7 +63,7 @@ export default {
     font-size: 15px;
     font-weight: bold;
 }
-.actor{
+.actor1{
     width: 100px;
     margin: auto;
     height: 45px;
