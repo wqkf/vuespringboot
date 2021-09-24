@@ -5,11 +5,23 @@ import App from './App'
 import router from './router'
 import Vant from 'vant';
 import 'vant/lib/index.css';
+// 添加axios组件
+var axios = require('axios');
+axios.defaults.baseURL = 'http://localhost:8088/api'
 
+Vue.prototype.$axios = axios
+Vue.config.productionTip = false
 Vue.use(Vant);
 
-Vue.config.productionTip = false
-
+axios.interceptors.request.use(config=>{
+  if(localStorage.getItem("token")){
+    config.headers.token = localStorage.getItem("token");
+  }
+  return config;
+}, function(error){
+  return Promise.reject(error);
+}
+);
 
 /* eslint-disable no-new */
 new Vue({
