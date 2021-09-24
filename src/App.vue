@@ -16,11 +16,13 @@
   <van-tabbar-item icon="shop-collect" to="/order">购物车</van-tabbar-item>
   <van-tabbar-item icon="setting-o" to="/order">设置</van-tabbar-item>
 </van-tabbar>
+     
   </div>
 </template>
 
 <script>
 export default {
+  
    
   name: 'App'
   ,data() {
@@ -41,7 +43,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
