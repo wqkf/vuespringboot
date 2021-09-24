@@ -8,6 +8,7 @@ import WomanView from '@/views/woman'
 import ManView from '@/views/man'
 import XinshuView from '@/views/xinshu'
 import XingqingView from '@/views/xiangqing'
+import ContextView from '@/views/context'
 Vue.use(Router)
 
 export default new Router({
@@ -42,5 +43,9 @@ export default new Router({
       name: 'id',
       component: XingqingView
     }
+    ,{path:'/context'
+    ,name:'num'
+    ,component: ContextView
+  }
   ]
 })
