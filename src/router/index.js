@@ -14,13 +14,11 @@ import XingqingView from '@/views/xiangqing'
 import AdminView from '@/views/admin'
 import RegistView from '@/views/regist'
 import LoginView from '@/views/login'
-
 import HomeView from '@/views/home'
 import OrderView from '@/views/order'
 Vue.use(Router)
 
-export default new Router({
-  routes: [
+const routes=[
     {
       path: '/',
       component: HomeView
@@ -63,7 +61,25 @@ export default new Router({
       path: '/login',
       component: LoginView
     }
-  ],
-  
-})
+  ]
+
+  const router=new Router({
+      mode:'history'//默认为hash模式 作用为地址和端口间#消失
+      ,routes
+  })
+
+    router.beforeEach((to,from,next)=>{
+      if(to.path === '/login'||to.path==='/'||to.path==='/admin'){
+         next();
+      }else{
+        let token  = localStorage.getItem('token');
+        
+        if(token === null || token ===''){
+          next('/login');
+        }else{
+          next();
+        }
+      }
+    });
+  export default router;
 
