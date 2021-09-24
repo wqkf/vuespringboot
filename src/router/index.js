@@ -8,6 +8,7 @@ import WomanView from '@/views/woman'
 import ManView from '@/views/man'
 import XinshuView from '@/views/xinshu'
 import XingqingView from '@/views/xiangqing'
+import CartView from '@/views/cart'
 Vue.use(Router)
 
 export default new Router({
@@ -41,6 +42,10 @@ export default new Router({
       path: '/xiangqing/id',
       name: 'id',
       component: XingqingView
+    },
+    {
+      path: '/cart',
+      component: CartView
     }
   ]
 })

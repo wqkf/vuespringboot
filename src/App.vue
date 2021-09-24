@@ -2,7 +2,7 @@
 
   <div id="app">
    <van-nav-bar
-  title="标题"
+  title=""
   left-text="返回"
   left-arrow
   @click-left="onClickLeft"
