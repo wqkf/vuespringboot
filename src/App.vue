@@ -21,15 +21,21 @@
 
 <script>
 export default {
-  
-  name: 'App',
-   methods: {
+   
+  name: 'App'
+  ,data() {
+    return {
+      active: 0,
+    };
+  },
+  methods: {
     onClickLeft() {
      this.$router.go(-1)
       Toast('返回');
     },
     
   },
+
 }
 </script>
 
