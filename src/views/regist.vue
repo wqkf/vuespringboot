@@ -7,19 +7,13 @@
         </van-row>
        
         <van-form @submit="onSubmit">
+           
             <van-field
                 v-model="nickname"
                 name="昵称"
                 label="昵称"
                 placeholder="昵称"
                 :rules="[{ required: true, message: '请填写昵称' }]"
-            />
-            <van-field
-                v-model="usertel"
-                name="手机号"
-                label="手机号"
-                placeholder="手机号"
-                :rules="[{ required: true, message: '请填写手机号用作登录名' }]"
             />
             <van-field
                 v-model="password"
@@ -38,19 +32,26 @@
                 :rules="[{ required: true, message: '请再次填写密码' }]"
             />
              <van-field
+                v-model="tel"
+                name="手机号"
+                label="手机号"
+                placeholder="手机号"
+                :rules="[{ required: true, message: '请填写手机号用作登录名' }]"
+            />
+             <van-field
                 v-model="email"
                 name="电子邮箱"
                 label="电子邮箱"
                 placeholder="电子邮箱"
                 :rules="[{ required: true, message: '请填写电子邮箱' }]"
             />
-            <van-datetime-picker
+            <!-- <van-datetime-picker
                 v-model="birth"
                 type="date"
                 title="生日"
                 :min-date="minDate"
                 :max-date="maxDate"
-                />
+                /> -->
             <div style="margin: 16px;">
                 <van-button round block type="info" native-type="submit">提交</van-button>
             </div>
@@ -64,13 +65,13 @@ export default {
     data(){
         return{
             nickname: '',
-            usertel: '',
             password: '',
+            tel: '',
             email: '',
             birth: '',
-            minDate: new Date(1989,0,1),
-            maxDate: new Date(),
-            currentDate: new Date(2021, 0, 1)
+            // minDate: new Date(1989,0,1),
+            // maxDate: new Date(),
+            // currentDate: new Date(2021, 0, 1)
         }
     },
     methods: {
@@ -78,23 +79,26 @@ export default {
             this.$router.push("/admin");
         },
         onSubmit(values) {
+            
             this.$axios
             .post('regist',{
                 nickname:this.nickname,
-                usertel:this.usertel,
+                tel:this.tel,
                 password:this.password,
                 email:this.email,
-                birth:this.birth
             })
             .then(res=>{
                 if(res.data.statusCode===200){
                     localStorage.setItem("nickname",this.nickname);
                     localStorage.setItem("password",this.password);
                     localStorage.setItem("email",this.email);
-                    localStorage.setItem("usertel",this.usertel);
+                    localStorage.setItem("tel",this.tel);
                     localStorage.setItem("birth",this.birth);
 
                     this.$router.push("/login"); 
+                }
+                if(res.data.statusCode===401){
+                    
                 }
             })
             .catch(error=>{

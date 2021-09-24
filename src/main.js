@@ -14,7 +14,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 // 添加axios组件
 var axios = require('axios');
-axios.defaults.baseURL = 'http://localhost:8088' 
+axios.defaults.baseURL = 'http://localhost:8088/api' 
 
 Vue.prototype.$axios = axios 
 

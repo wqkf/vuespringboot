@@ -19,7 +19,7 @@
                 <!-- <font size="1"> 编辑个人资料</font> -->
                 </van-col>
                 <van-col span="4"><br><font size="1" @click="login">点击登录></font></van-col>
-
+                    
             </van-row>
         </van-col>
     </van-row>
