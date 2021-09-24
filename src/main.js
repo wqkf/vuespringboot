@@ -5,13 +5,9 @@ import App from './App'
 import router from './router'
 import Vant from 'vant';
 import 'vant/lib/index.css';
-<<<<<<< HEAD
-// 添加axios组件
-var axios = require('axios');
-axios.defaults.baseURL = 'http://localhost:8088/api'
 
-Vue.prototype.$axios = axios
-=======
+// 添加axios组件
+
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -21,9 +17,9 @@ var axios = require('axios');
 axios.defaults.baseURL = 'http://localhost:8088' 
 
 Vue.prototype.$axios = axios 
-Vue.use(Vant);
+
 Vue.use(ElementUI);
->>>>>>> cf5de5041ec1d9ff34f3975754fd0698df7730aa
+
 Vue.config.productionTip = false
 Vue.use(Vant);
 

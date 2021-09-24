@@ -1,15 +1,15 @@
 <template>
 
   <div id="app">
-<<<<<<< HEAD
-=======
+
+
    <van-nav-bar
   title="标题"
   left-text="返回"
   left-arrow
   @click-left="onClickLeft"
 />
->>>>>>> cf5de5041ec1d9ff34f3975754fd0698df7730aa
+
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
     <van-tabbar v-model="active" active-color="#ee0a24" inactive-color="#000">
@@ -24,15 +24,6 @@
 
 <script>
 export default {
-<<<<<<< HEAD
-  name: "App",
-  data() {
-    return {
-      active:''
-    };
-  }
-};
-=======
    
   name: 'App'
   ,data() {
@@ -49,7 +40,7 @@ export default {
   },
 
 }
->>>>>>> cf5de5041ec1d9ff34f3975754fd0698df7730aa
+
 </script>
 
 <style>

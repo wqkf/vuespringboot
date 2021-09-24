@@ -88,10 +88,18 @@ export default {
             })
             .then(res=>{
                 if(res.data.statusCode===200){
-                    
+                    localStorage.setItem("nickname",this.nickname);
+                    localStorage.setItem("password",this.password);
+                    localStorage.setItem("email",this.email);
+                    localStorage.setItem("usertel",this.usertel);
+                    localStorage.setItem("birth",this.birth);
+
+                    this.$router.push("/login"); 
                 }
             })
-            .catch()
+            .catch(error=>{
+                console.log(error);
+            })
         }
   },
 }
