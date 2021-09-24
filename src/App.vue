@@ -1,6 +1,12 @@
 <template>
+
   <div id="app">
-    
+   <van-nav-bar
+  title="标题"
+  left-text="返回"
+  left-arrow
+  @click-left="onClickLeft"
+/>
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
     <van-tabbar v-model="active" active-color="#ee0a24" inactive-color="#000">
@@ -15,7 +21,15 @@
 
 <script>
 export default {
-  name: 'App'
+  
+  name: 'App',
+   methods: {
+    onClickLeft() {
+     this.$router.go(-1)
+      Toast('返回');
+    },
+    
+  },
 }
 </script>
 
