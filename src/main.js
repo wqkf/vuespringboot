@@ -12,6 +12,7 @@ import moment from 'moment'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import { Dialog } from 'vant';
 //时间格式转化
 Vue.prototype.$moment=moment
 
@@ -22,6 +23,7 @@ axios.defaults.baseURL = 'http://localhost:8088'
 Vue.prototype.$axios = axios 
 
 Vue.use(ElementUI);
+Vue.use(Dialog);
 
 Vue.config.productionTip = false
 Vue.use(Vant);

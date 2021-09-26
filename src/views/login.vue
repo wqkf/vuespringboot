@@ -52,12 +52,9 @@ export default {
             .then(res=>{
 
                 if(res.data.statusCode==200){
-                   
                     localStorage.setItem("usertel",this.usertel);
-                    
+
                     localStorage.setItem("token",res.data.data);
-
-
                      this.$router.push("/admin");  
                 }                
                 

@@ -6,7 +6,6 @@
       <van-address-edit
         :area-list="areaList"
         show-postal
-       
         show-set-default
         show-search-result
         :search-result="searchResult"
@@ -32,7 +31,7 @@
         </template>
       </van-swipe-cell>
       <div>
-        <van-submit-bar  :price="totol" button-text="提交订单" @submit="onSubmit">
+        <van-submit-bar :price="totol" button-text="提交订单" @submit="onSubmit">
           <van-checkbox v-model="checked">全选</van-checkbox>
           <template #tip>
             <span @click="showPopup">修改联系人</span>
@@ -44,22 +43,21 @@
 </template>
 <script>
 export default {
+ 
   created: function() {
     this.$axios
-      .get("carts")
+      .get("carts?tel="+localStorage.getItem('usertel'))
       .then(res => {
-        if (res.data.statusCode == 200) {
-          var num=0;
-          
+        if (res.data.statusCode == 200) {  
+            
+          var num = 0;
+
           this.carts = res.data.data;
-          
-          for(var i=0;i<this.carts.length;i++){
-            num+=this.carts[i].price*this.carts[i].shuliang;
+
+          for (var i = 0; i < this.carts.length; i++) {
+            num += this.carts[i].price * this.carts[i].shuliang;
           }
-          this.totol=num*100;
-         
-
-
+          this.totol = num * 100;
         }
       })
       .catch(error => {
@@ -68,7 +66,7 @@ export default {
   },
   data() {
     return {
-      totol:0,
+      totol: 0,
       show: false,
       searchResult: [],
       areaList: {
@@ -108,11 +106,14 @@ export default {
           name: "商品标题",
           img: "https://img01.yzcdn.cn/vant/cat.jpeg"
         }
-      ]
+      ],
     };
   },
+  
   methods: {
-   
+    onSubmit() {
+    this.$router.push("/cart");
+    },  
     showPopup() {
       this.show = true;
     },
