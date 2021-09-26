@@ -20,12 +20,12 @@
 </div>
 </template>
 <script>
-let pageNum=0;
+let pageNum=1;
 export default {
     
     created:function(){
         
-         this.$axios.post('home/anload?id='+4).then(res=>{
+         this.$axios.get('home/anload?id='+4).then(res=>{
              this.books=res.data.data
          }).catch()
      
@@ -40,7 +40,7 @@ export default {
          
      huan:function(){
          
-         this.$axios.post('home/anload',{pageNum:pageNum,id:4}).then(res=>{
+         this.$axios.get('home/anload',{params:{pageNum:pageNum,id:4}}).then(res=>{
              this.books=res.data.data;
              
          }).catch()
