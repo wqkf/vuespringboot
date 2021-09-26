@@ -1,58 +1,61 @@
 <template>
   <div>
     <div>
-      <van-row type="flex">
-       确认订单>
-      </van-row>
+      <van-row type="flex">确认订单></van-row>
     </div>
     <van-panel title="商品信息" desc="描述信息" status="状态">
       <div v-for="cart in carts">
-      <van-card
-        :num="cart.shuliang"
-        :price="cart.price"
-        :desc="cart.jianjie"
-        :title="cart.name"
-        :thumb="cart.img"
-      />
-    </div>
-  <div>
-    <van-row type="flex">
-       地址详情：
-      </van-row><br>
-      <el-form ref="form" :model="form" label-width="80px">
-  <el-form-item label="活动名称">
-    <el-input v-model="form.name"></el-input>
-  </el-form-item>
-
-  <el-form-item label="活动形式">
-    <el-input type="textarea" v-model="form.desc"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="onSubmit">确认支付</el-button>
-    <el-button>取消</el-button>
-  </el-form-item>
-</el-form>
-  </div>
-    
-</van-panel>
-    
+        <van-card
+          :num="cart.shuliang"
+          :price="cart.price"
+          :desc="cart.jianjie"
+          :title="cart.name"
+          :thumb="cart.img"
+        />
+        <van-dialog v-model="show" title="标题" show-cancel-button>
+          <van-card
+            :num="cart.shuliang"
+            :price="cart.price"
+            :desc="cart.jianjie"
+            :title="cart.name"
+            :thumb="cart.img"
+          />
+        </van-dialog>
+        <div>
+          <van-row type="flex">地址详情：</van-row>
+          <br>
+          <van-address-list
+            v-model="chosenAddressId"
+            :list="list"
+            default-tag-text="默认"
+            add-button-text="确认支付"
+            @add="onAdd"
+            @edit="onEdit"
+          />
+        </div>
+      </div>
+    </van-panel>
   </div>
 </template>
 <script>
 export default {
   created: function() {
     this.$axios
-      .get("carts")
+      .get("carts?tel=" + localStorage.getItem("usertel"))
       .then(res => {
         if (res.data.statusCode == 200) {
-          var num = 0;
-
           this.carts = res.data.data;
-
-          // for (var i = 0; i < this.carts.length; i++) {
-          //   num += this.carts[i].price * this.carts[i].shuliang;
-          // }
-          // this.totol = num * 100;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    this.$axios
+      .post("orders")
+      .then(res => {
+        if (res.data.statusCode == 200) {
+          this.list = res.data.data;
+          console.log(this.list);
         }
       })
       .catch(error => {
@@ -60,18 +63,19 @@ export default {
       });
   },
   data() {
-    return{
-      form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        },
-       carts: [
+    return {
+      show: false,
+      chosenAddressId: "1",
+      list: [
+        {
+          id: "1",
+          name: "五五",
+          tel: "13000000000",
+          address: "浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室",
+          isDefault: true
+        }
+      ],
+      carts: [
         {
           shuliang: "21",
           price: "2.00",
@@ -94,13 +98,21 @@ export default {
           img: "https://img01.yzcdn.cn/vant/cat.jpeg"
         }
       ]
-    }
+    };
   },
-    methods: {
-      onSubmit() {
-        console.log('submit!');
-      }
+  methods: {
+    onAdd() {
+      // alert("xxx")
+      this.show = true;
+      Toast("新增地址");
+    },
+    onEdit(item, index) {
+      Toast("编辑地址:" + index);
+    },
+    onSelect(contact) {
+      Toast("选择" + contact.id);
     }
+  }
 };
 </script>
 

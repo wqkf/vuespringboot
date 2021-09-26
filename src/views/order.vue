@@ -38,18 +38,6 @@
           </template>
         </van-submit-bar>
       </div>
-      <div>
-        <van-dialog v-model="show2" title="确认订单" show-cancel-button >
-          <van-card
-            :num="cart.shuliang"
-            :price="cart.price"
-            :desc="cart.jianjie"
-            :title="cart.name"
-            :thumb="cart.img"
-           
-          />
-        </van-dialog>
-      </div>
     </div>
   </div>
 </template>
@@ -58,9 +46,10 @@ export default {
  
   created: function() {
     this.$axios
-      .get("carts")
+      .get("carts?tel="+localStorage.getItem('usertel'))
       .then(res => {
-        if (res.data.statusCode == 200) {
+        if (res.data.statusCode == 200) {  
+            
           var num = 0;
 
           this.carts = res.data.data;
@@ -79,7 +68,6 @@ export default {
     return {
       totol: 0,
       show: false,
-      show2: false,
       searchResult: [],
       areaList: {
         province_list: {
@@ -119,36 +107,11 @@ export default {
           img: "https://img01.yzcdn.cn/vant/cat.jpeg"
         }
       ],
-       chosenAddressId: '1',
-      list: [
-        {
-          id: '1',
-          name: '张三',
-          tel: '13000000000',
-          address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-          isDefault: true,
-        },
-        {
-          id: '2',
-          name: '李四',
-          tel: '1310000000',
-          address: '浙江省杭州市拱墅区莫干山路 50 号',
-        },
-      ],
-      disabledList: [
-        {
-          id: '3',
-          name: '王五',
-          tel: '1320000000',
-          address: '浙江省杭州市滨江区江南大道 15 号',
-        },
-      ],
     };
   },
   
   methods: {
     onSubmit() {
-      this.show2 = true; 
     this.$router.push("/cart");
     },  
     showPopup() {

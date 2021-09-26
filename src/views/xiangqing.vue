@@ -13,11 +13,8 @@
     </van-col>
     <van-col span="10">
       <span>
-          整体星级
-        <el-rate
-  v-model="book.xingji"
-  show-text>
-</el-rate>
+        整体星级
+        <el-rate v-model="book.xingji" show-text></el-rate>
       </span>
     </van-col>
     <van-col span="4">
@@ -37,13 +34,13 @@
     <van-col span="24">
       <van-grid direction="horizontal" :column-num="3" :gutter="30">
         <van-grid-item>
-          <van-icon name="smile-o" size="30"/>推荐
+          <van-icon name="smile-o" size="30" @click="openpl(4)"/>推荐
         </van-grid-item>
         <van-grid-item>
-          <van-icon name="exchange" size="30"/>一般
+          <van-icon name="exchange" size="30" @click="openpl(3)"/>一般
         </van-grid-item>
         <van-grid-item>
-          <van-icon name="closed-eye" size="30"/>不行
+          <van-icon name="closed-eye" size="30" @click="openpl(2)"/>不行
         </van-grid-item>
       </van-grid>
     </van-col>
@@ -64,14 +61,37 @@
       <br>
       <span class="putong">完结于{{book.sjdate}}</span>
     </van-col>
+
+    <van-action-sheet v-model="show" title="短评">
+      <div class="content">
+        <van-field
+          v-model="message"
+          rows="2"
+          autosize
+          label="评论"
+          type="textarea"
+          maxlength="50"
+          placeholder="请输入评论"
+          show-word-limit
+        >
+          <template #button>
+            <van-button size="small" type="primary" @click="pinglun()">发表评论</van-button>
+          </template>
+        </van-field>
+      </div>
+    </van-action-sheet>
+   
   </van-row>
 </template>
 
 
 <script>
+var pingjia = 0;
+     var id=0;
+
 export default {
   created: function() {
-    var id = this.$route.params.id;
+    id = this.$route.params.id;
     this.$axios
       .get("home/bookload?id=" + id)
       .then(res => {
@@ -79,13 +99,38 @@ export default {
         console.log(this.book);
       })
       .catch();
+      
+      this.$axios
+      .get("home/plload?id="+ id)
+      .then(res => {
+      this.pl=res.data.data
+       
+      })
+      .catch();
   },
   data() {
     return {
-        
+      message: "",
+      show: false,
       book: {},
       iconClasses: ["icon-rate-face-1", "icon-rate-face-2", "icon-rate-face-3"] // 等同于 { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
+      ,pl:[]
     };
+  },
+  methods: {
+    openpl(res) {
+      this.show = true;
+      pingjia = res;
+    },
+    pinglun() {
+      this.$axios
+        .get("home/pinglun", { bid:id, pinglun: this.message})
+        .then(res => {
+          this.pl=res.data.data;
+        })
+        .catch();
+      this.show = false;
+    }
   }
 };
 </script>
@@ -125,5 +170,8 @@ export default {
 .fangda {
   font-size: 35px;
   color: dimgray;
+}
+.content {
+  padding: 16px 16px 160px;
 }
 </style>

@@ -6,6 +6,7 @@
     :title="book.name"
     :thumb="book.img"
      :price="book.price"
+      @click="xiangqing(book.id)"
 >
   <template #tags>
    <van-cell title="作者" :value="book.actor"  class="actor1"/>
@@ -43,6 +44,15 @@ export default {
              
          }).catch()
          pageNum+=5;
+     }
+      ,xiangqing(res){
+         this.$router.push({
+             path:'/xiangqing'
+            ,name:'id'
+             ,params:{
+                 id:res
+             }
+         })
      }
     }
 }

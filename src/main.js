@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import Vant from 'vant';
 import 'vant/lib/index.css';
+
+// 添加axios组件
+
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { Dialog } from 'vant';
@@ -14,11 +17,22 @@ var axios = require('axios');
 axios.defaults.baseURL = 'http://localhost:8088' 
 
 Vue.prototype.$axios = axios 
-Vue.use(Vant);
+
 Vue.use(ElementUI);
 Vue.use(Dialog);
-Vue.config.productionTip = false
 
+Vue.config.productionTip = false
+Vue.use(Vant);
+
+axios.interceptors.request.use(config=>{
+  if(localStorage.getItem("token")){
+    config.headers.token = localStorage.getItem("token");
+  }
+  return config;
+}, function(error){
+  return Promise.reject(error);
+}
+);
 
 /* eslint-disable no-new */
 new Vue({
