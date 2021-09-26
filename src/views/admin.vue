@@ -23,7 +23,7 @@
                 <van-col span="8"><br><font size="5">{{user.nickname}}</font><br><br>
                 <!-- <font size="1"> 编辑个人资料</font> -->
                 </van-col>
-                <van-col span="4"><br><font size="1" @click="login">主页></font></van-col>
+                <van-col span="4"><br><font size="1" @click="login">{{denglu}}</font></van-col>
                     
             </van-row>
         </van-col>
@@ -42,7 +42,7 @@
         <van-col span="12">
             <van-cell>
                 <van-icon name="fire" size="25"/>&nbsp;
-                <font size="3">免费无限卡</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                <font size="3" @click="vip()">购买vip</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
                 <font size="1">16天</font>
             </van-cell>
         </van-col>
@@ -53,7 +53,7 @@
       <van-col span="12">
         <van-cell>
           <van-icon name="shopping-cart" size="25"/>&nbsp;
-          <font size="3">购物车</font>
+          <router-link to="/order"><font size="3">购物车</font></router-link>
           <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <font size="1">1件待购买</font>
         </van-cell>
@@ -61,7 +61,7 @@
       <van-col span="12">
         <van-cell>
           <van-icon name="bag" size="25"/>&nbsp;
-          <font size="3">订单</font>
+          <router-link to="/cart"><font size="3">订单</font></router-link>
           <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
           <font size="1">管理订单</font>
         </van-cell>
@@ -249,6 +249,19 @@
                     <van-cell title="纸书币">{{user.zsb}}</van-cell>
                 </van-cell-group>
             </div>
+            
+            <van-sku
+  v-model="show"
+  :sku="sku"
+  :goods="goods"
+  :goods-id="goodsId"
+  :quota="quota"
+  :quota-used="quotaUsed"
+  :hide-stock="sku.hide_stock"
+  :message-config="messageConfig"
+  @buy-clicked="onBuyClicked"
+  @add-cart="onAddCartClicked"
+/>
         </div>
       
     </van-overlay>
@@ -265,10 +278,12 @@
 <script>
 
     export default {
+  
          created:function (){
         this.$axios.get('adminload?usertel='+localStorage.getItem('usertel')).then(res=>{
             this.user=res.data.data;
             console.log(this.user)
+            this.denglu="主页>"
         }).catch();
     },
     data() {
@@ -281,12 +296,28 @@
             usertel: localStorage.getItem('usertel'),
             czb: 0
             ,user:{}
+            ,show: false,
+            denglu:'点击登录>',
+      sku: {
+        // 数据结构见下方文档
+      },
+      goods: {
+        // 数据结构见下方文档
+      },
+      messageConfig: {
+        // 数据结构见下方文档
+      },
+
         };
     },
     methods: {
         login(){
+            if(this.denglu=="主页>"){
+                this.$router.push("/cart")
+            }else{
                 this.$router.push("/login");
-        },
+        
+        }},
         showpopup(){
             this.popups=true;
         },
@@ -427,6 +458,33 @@
                 }
             })
             .catch()
+        }
+        ,vip(){
+       this.$confirm('这将让你损失30元', '你确定吗', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            if(this.user.czb>=30){
+           this.$axios.get('maivip?utel='+localStorage.getItem('utel')
+           .then(res=>{
+               this.user=res.data.data
+               this.$message({
+            type: 'success',
+            message: '购买成功!'
+            
+          });
+           }).catch())
+           }else{
+               alert("你连30都没有")
+           }
+          
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消购买'
+          });          
+        });
         }
         }
     };
