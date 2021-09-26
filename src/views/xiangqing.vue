@@ -60,20 +60,16 @@
       <span class="fangda">共{{book.words}}万字</span>
       <br>
       <span class="putong">完结于{{book.sjdate}}</span>
- 
     </van-col>
-     <van-col span="20" offset="2">
+    <van-col span="20" offset="2">
       <el-divider></el-divider>
     </van-col>
-     <van-col span="20" offset="2">
-     <h3>评论区</h3>
+    <van-col span="20" offset="2">
+      <h3>评论区</h3>
     </van-col>
+
     <van-col span="20" offset="2" v-for="(pl,pinglun) in pls" :key="pinglun">
-       <van-card
-      :desc="pl.context"
-      :title="pl.nickname"
-      :thumb="pl.pic"
-/>
+      <van-card :desc="pl.context" :title="pl.nickname" :thumb="pl.pic"/>
     </van-col>
 
     <van-action-sheet v-model="show" title="短评">
@@ -94,15 +90,14 @@
         </van-field>
       </div>
     </van-action-sheet>
-   
   </van-row>
 </template>
 
 
 <script>
 var pingjia = 0;
-     var id=0;
-import  moment from "moment";
+var id = 0;
+import moment from "moment";
 export default {
   created: function() {
     id = this.$route.params.id;
@@ -110,29 +105,27 @@ export default {
       .get("home/bookload?id=" + id)
       .then(res => {
         this.book = res.data.data;
-        localStorage.setItem('bookifvip',this.book.sfvip);
-        var words=this.book.words;
-        var a=words/10000;
+        localStorage.setItem("bookifvip", this.book.sfvip);
+        var words = this.book.words;
+        var a = words / 10000;
         //四舍五入取小数点后两位
         a = a.toFixed(2);
-        this.book.words=a;
-        words=this.book.readers;
-        a=words/10000;
+        this.book.words = a;
+        words = this.book.readers;
+        a = words / 10000;
         a = a.toFixed(2);
-        this.book.readers=a;
-         words=this.book.sjdate;
-         words=moment().format("YYYY年MM月DD日")
-         this.book.sjdate=words;
-
+        this.book.readers = a;
+        words = this.book.sjdate;
+        words = moment().format("YYYY年MM月DD日");
+        this.book.sjdate = words;
       })
       .catch();
-      
-      this.$axios
-      .get("home/plload?id="+ id)
+
+    this.$axios
+      .get("home/plload?id=" + id)
       .then(res => {
-      this.pls=res.data.data
-    console.log(this.pls);
-       
+        this.pls = res.data.data;
+        console.log(this.pls);
       })
       .catch();
   },
@@ -141,8 +134,8 @@ export default {
       message: "",
       show: false,
       book: {},
-      iconClasses: ["icon-rate-face-1", "icon-rate-face-2", "icon-rate-face-3"] // 等同于 { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
-      ,pls:[]
+      iconClasses: ["icon-rate-face-1", "icon-rate-face-2", "icon-rate-face-3"], // 等同于 { 2: 'icon-rate-face-1', 4: { value: 'icon-rate-face-2', excluded: true }, 5: 'icon-rate-face-3' }
+      pls: []
     };
   },
   methods: {
@@ -152,22 +145,28 @@ export default {
     },
     pinglun() {
       this.$axios
-        .get("home/pinglun", { params:{bid:id, pinglun: this.message,token:localStorage.getItem('token')}})
+        .get("home/pinglun", {
+          params: {
+            bid: id,
+            pinglun: this.message,
+            token: localStorage.getItem("token")
+          }
+        })
         .then(res => {
-          this.pls=res.data.data;
+          this.pls = res.data.data;
         })
         .catch();
       this.show = false;
-    }
-    ,contxt(id){
-     console.log(id);
+    },
+    contxt(id) {
+      console.log(id);
       this.$router.push({
-             path:'/context'
-            ,name:'context'
-             ,params:{
-                 id:id
-             }
-         })
+        path: "/context",
+        name: "context",
+        params: {
+          id: id
+        }
+      });
     }
   }
 };

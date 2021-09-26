@@ -10,9 +10,8 @@
       />
     </form>
     <div id="c2">
-        <router-link to="/bookrack0">书架</router-link>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <router-link to="/book">书单</router-link>
+      <router-link to="/bookrack0">书架</router-link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <router-link to="/book">书单</router-link>
     </div>
     <hr>
     <router-view/>
@@ -38,13 +37,11 @@ export default {
 </script>
 
 <style>
-    #c2{
-        text-align: left;
-        margin-left: 25px;
-        font-size: 18px;
-        
-        
-    }
+#c2 {
+  text-align: left;
+  margin-left: 25px;
+  font-size: 18px;
+}
 </style>
 
 

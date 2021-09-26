@@ -2,62 +2,47 @@
   <div>
     <van-tabs v-model="active">
       <van-tab title="默认">
-        <van-grid :border="false" :column-num="3" >
-
+        <van-grid :border="false" :column-num="3">
           <van-grid-item v-for="(bookRack,index) in bookRacks" :key="index">
             <van-image :src="bookRack.img"/>
             <span>{{bookRack.name}}</span>
-            
           </van-grid-item>
-
         </van-grid>
       </van-tab>
 
       <van-tab title="更新">
-        <van-grid :border="false" :column-num="3" >
-
+        <van-grid :border="false" :column-num="3">
           <van-grid-item v-for="(bookRack,index) in bookRacks" :key="index">
             <van-image :src="bookRack.img"/>
             <span>{{bookRack.name}}</span>
-            
           </van-grid-item>
-
         </van-grid>
       </van-tab>
 
       <van-tab title="进度">
-        <van-grid :border="false" :column-num="3" >
-
+        <van-grid :border="false" :column-num="3">
           <van-grid-item v-for="(bookRack,index) in bookRacks" :key="index">
             <van-image :src="bookRack.img"/>
             <span>{{bookRack.name}}</span>
-            
           </van-grid-item>
-
         </van-grid>
       </van-tab>
 
       <van-tab title="购买">
-        <van-grid :border="false" :column-num="3" >
-
+        <van-grid :border="false" :column-num="3">
           <van-grid-item v-for="(bookRack,index) in bookRacks" :key="index">
             <van-image :src="bookRack.img"/>
             <span>{{bookRack.name}}</span>
-            
           </van-grid-item>
-
         </van-grid>
       </van-tab>
 
       <van-tab title="分类">
-        <van-grid :border="false" :column-num="3" >
-
+        <van-grid :border="false" :column-num="3">
           <van-grid-item v-for="(bookRack,index) in bookRacks" :key="index">
             <van-image :src="bookRack.img"/>
             <span>{{bookRack.name}}</span>
-            
           </van-grid-item>
-
         </van-grid>
       </van-tab>
     </van-tabs>
@@ -71,8 +56,7 @@ export default {
       .get("bookRacks")
       .then(res => {
         this.bookRacks = res.data;
-      console.log(this.bookRacks)
-
+        console.log(this.bookRacks);
       })
       .catch(error => {
         console.log(error);
@@ -118,7 +102,6 @@ export default {
 </script>
 
 <style>
-
 </style>
 
 
