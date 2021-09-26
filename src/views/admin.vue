@@ -193,7 +193,8 @@
             
         this.$axios.get('adminload?usertel='+localStorage.getItem('usertel')).then(res=>{
             this.user=res.data.data;
-            console.log(this.user)
+            console.log(this.user);
+            localStorage.setItem('userifvip',this.user.ifvip)
         }).catch();
     },
     data() {

@@ -1,7 +1,7 @@
 <template>
   <van-row>
     <van-col span="24">
-      <img class="bookimg" :src="book.img">
+      <img class="bookimg" :src="book.img" @click="contxt(book.id)">
     </van-col>
     <van-col span="20" offset="2">
       <span class="shuming">{{book.name}}</span>
@@ -110,6 +110,7 @@ export default {
       .get("home/bookload?id=" + id)
       .then(res => {
         this.book = res.data.data;
+        localStorage.setItem('bookifvip',this.book.sfvip);
         var words=this.book.words;
         var a=words/10000;
         //四舍五入取小数点后两位
@@ -157,6 +158,16 @@ export default {
         })
         .catch();
       this.show = false;
+    }
+    ,contxt(id){
+     console.log(id);
+      this.$router.push({
+             path:'/context'
+            ,name:'context'
+             ,params:{
+                 id:id
+             }
+         })
     }
   }
 };

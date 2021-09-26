@@ -16,6 +16,7 @@ import RegistView from '@/views/regist'
 import LoginView from '@/views/login'
 import HomeView from '@/views/home'
 import OrderView from '@/views/order'
+import ContextView from '@/views/context'
 Vue.use(Router)
 
 const routes=[
@@ -60,6 +61,11 @@ const routes=[
     {
       path: '/login',
       component: LoginView
+    }
+    ,{
+      path: '/context',
+      name: 'context',
+      component: ContextView
     }
   ]
 
