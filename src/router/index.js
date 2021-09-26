@@ -11,11 +11,17 @@ import WomanView from '@/views/woman'
 import ManView from '@/views/man'
 import XinshuView from '@/views/xinshu'
 import XingqingView from '@/views/xiangqing'
+import CartView from '@/views/cart'
 import AdminView from '@/views/admin'
 import RegistView from '@/views/regist'
 import LoginView from '@/views/login'
 import HomeView from '@/views/home'
 import OrderView from '@/views/order'
+import ContextView from '@/views/context'
+import BookrackView from '@/views/bookrack0'
+import BookView from '@/views/book'
+import MybookView from '@/views/mybook'
+import StorebookView from '@/views/storebook'
 Vue.use(Router)
 
 const routes=[
@@ -50,7 +56,11 @@ const routes=[
       component: XingqingView
     },
     {
-      path: '/admin',
+      path: '/cart',
+      component: CartView
+    }
+      ,
+   { path: '/admin',
       component: AdminView
     },
     {
@@ -61,6 +71,35 @@ const routes=[
       path: '/login',
       component: LoginView
     }
+    ,{
+      path: '/context',
+      name: 'context',
+      component: ContextView
+    }
+    ,
+    {
+      path: '/bookrack',
+      component: BookrackView,
+      children: [
+       
+        {
+          path: '/book',
+          component: BookView,
+          children:[
+            {
+              path: '/mybook',
+              component: MybookView,
+            },
+            {
+              path: '/storebook',
+              component: StorebookView,
+            }
+          ]
+         
+        }, 
+      ]
+    },
+  
   ]
 
   const router=new Router({

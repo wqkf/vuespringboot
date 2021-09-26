@@ -92,7 +92,7 @@ export default {
     },
     shoucang(obj) {
       this.$axios
-        .get("shoucang?id=" + obj)
+        .get("home/shoucang",{params:{token:localStorage.getItem('token'),bid:obj}})
         .then(res => {
           if (res.data.status === 200) {
             alert("收藏成功");
