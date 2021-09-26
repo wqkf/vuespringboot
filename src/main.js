@@ -5,13 +5,38 @@ import App from './App'
 import router from './router'
 import Vant from 'vant';
 import 'vant/lib/index.css';
+
+import moment from 'moment'
+
+// 添加axios组件
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import { Dialog } from 'vant';
+//时间格式转化
+Vue.prototype.$moment=moment
+
+// 添加axios组件
+var axios = require('axios');
+axios.defaults.baseURL = 'http://localhost:8088' 
+
+Vue.prototype.$axios = axios 
+
+Vue.use(ElementUI);
+Vue.use(Dialog);
+
+Vue.config.productionTip = false
 Vue.use(Vant);
-var axios = require('axios')
-axios.defaults.baseURL = 'http://localhost:8081'  //此处是https协议如果不是改成http
-// 将API方法绑定到全局
-Vue.prototype.$http = axios
 
-
+axios.interceptors.request.use(config=>{
+  if(localStorage.getItem("token")){
+    config.headers.token = localStorage.getItem("token");
+  }
+  return config;
+}, function(error){
+  return Promise.reject(error);
+}
+);
 
 Vue.config.productionTip = false
 // axios.create({

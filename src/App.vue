@@ -1,26 +1,45 @@
 <template>
+
   <div id="app">
+
+
+   <van-nav-bar
+  title=""
+  left-text="返回"
+  left-arrow
+  @click-left="onClickLeft"
+/>
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
     <van-tabbar v-model="active" active-color="#ee0a24" inactive-color="#000">
-      <van-tabbar-item icon="home-o" to="/">主页</van-tabbar-item>
-      <van-tabbar-item icon="search" to="/search">检索</van-tabbar-item>
-      <van-tabbar-item icon="friends-o" to="/userInfo">好友</van-tabbar-item>
-      <van-tabbar-item icon="shop-collect" to="/found">购物车</van-tabbar-item>
-      <van-tabbar-item icon="setting-o" to="/order">设置</van-tabbar-item>
-    </van-tabbar>
+  <van-tabbar-item icon="home-o" to="/">主页</van-tabbar-item>
+  <van-tabbar-item icon="coupon-o"  to="/bookrack">书架</van-tabbar-item>
+  <van-tabbar-item icon="fire-o"  to="/userInfo">圈子</van-tabbar-item>
+  <van-tabbar-item icon="shop-collect" to="/order">购物车</van-tabbar-item>
+  <van-tabbar-item icon="setting-o" to="/admin">设置</van-tabbar-item>
+</van-tabbar>
+     
   </div>
 </template>
 
 <script>
 export default {
-  name: "App",
-  data() {
+   
+  name: 'App'
+  ,data() {
     return {
-      active: ""
+      active: 0,
     };
-  }
-};
+  },
+  methods: {
+    onClickLeft() {
+     this.$router.go(-1)
+      
+    },
+    
+  },
+
+}
 </script>
 
 <style>
@@ -31,5 +50,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 10px;
+  
 }
 </style>
