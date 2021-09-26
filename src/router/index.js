@@ -18,8 +18,8 @@ import LoginView from '@/views/login'
 import HomeView from '@/views/home'
 import OrderView from '@/views/order'
 import ContextView from '@/views/context'
-import BookrackView from '@/views/bookrack'
-import Bookrack0View from '@/views/bookrack0'
+import BookrackView from '@/views/bookrack0'
+
 import BookView from '@/views/book'
 import MybookView from '@/views/mybook'
 import StorebookView from '@/views/storebook'
@@ -82,10 +82,7 @@ const routes=[
       path: '/bookrack',
       component: BookrackView,
       children: [
-        {
-          path: '/bookrack0',
-          component: Bookrack0View
-        },
+       
         {
           path: '/book',
           component: BookView,
