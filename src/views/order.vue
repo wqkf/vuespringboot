@@ -20,6 +20,7 @@
     <div v-for="cart in carts">
       <van-swipe-cell>
         <van-card
+          :id="cart.id"
           :num="cart.shuliang"
           :price="cart.price"
           :desc="cart.jianjie"
@@ -27,7 +28,7 @@
           :thumb="cart.img"
         />
         <template #right>
-          <van-button square text="删除" type="danger" class="delete-button"/>
+          <van-button square text="删除" @click="del(cart.id)" type="danger" class="delete-button"/>
         </template>
       </van-swipe-cell>
       <div>
@@ -45,6 +46,7 @@
 export default {
  
   created: function() {
+   
     this.$axios
       .get("carts?tel="+localStorage.getItem('usertel'))
       .then(res => {
@@ -53,6 +55,7 @@ export default {
           var num = 0;
 
           this.carts = res.data.data;
+          console.log(this.carts)
 
           for (var i = 0; i < this.carts.length; i++) {
             num += this.carts[i].price * this.carts[i].shuliang;
@@ -86,6 +89,7 @@ export default {
       }, // 数据格式见 Area 组件文档
       carts: [
         {
+          id:"1",
           shuliang: "21",
           price: "2.00",
           jianjie: "描述信息",
@@ -93,6 +97,7 @@ export default {
           img: "https://img01.yzcdn.cn/vant/cat.jpeg"
         },
         {
+          id:"2",
           shuliang: "31",
           price: "21.00",
           jianjie: "描述信息",
@@ -111,6 +116,25 @@ export default {
   },
   
   methods: {
+   del(id){  
+    
+    this.$axios
+    .get("del",{params:{id:id}})
+    .then(res=>{
+
+        alert("删除成功");
+      
+        for(var i=0;i<this.carts.length;i++){
+          if(id==this.carts[i].id){
+            
+            this.carts.splice(i,1)
+           break;
+          }
+        }
+        console.log(this.carts)
+     
+    })
+    },
     onSubmit() {
     this.$router.push("/cart");
     },  
