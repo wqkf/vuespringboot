@@ -18,7 +18,7 @@
                 <van-col span="8"><br><font size="5">{{user.nickname}}</font><br><br>
                 <!-- <font size="1"> 编辑个人资料</font> -->
                 </van-col>
-                <van-col span="4"><br><font size="1" @click="login">点击登录></font></van-col>
+                <van-col span="4"><br><font size="1" @click="login">主页></font></van-col>
                     
             </van-row>
         </van-col>
@@ -30,7 +30,7 @@
             <van-cell>
                 <van-icon name="gold-coin" size="25"/>&nbsp;
                 <font size="3">账户</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                <font size="1">余额 {{user.yue}}</font>
+                <font size="1">余额 {{user.zengb+user.czb}}</font>
             </van-cell>
         </van-col>
         <van-col span="12">
@@ -158,25 +158,55 @@
                 </van-row>  
                 <van-divider />
                 <van-cell-group inset>
-                    <h2>{{user.yue}}</h2>
-                    <font size=1>充值币&nbsp;0.00 &nbsp;&nbsp;|&nbsp;&nbsp;赠币&nbsp;1.00</font><br><br>
-                   <van-button round type="info" size="large">充值</van-button>
+                    <h2>{{user.zengb+user.czb}}</h2>
+                    <font size=1>充值币&nbsp;{{user.czb}} &nbsp;&nbsp;|&nbsp;&nbsp;赠币&nbsp;{{user.zengb}}</font><br><br>
+                   <van-button round type="info" size="large" @click="showpopup">充值</van-button>
+                   <!-- 充值窗口 -->
+                    <van-popup v-model="popups" :style="{width :'50%',height :'42%'}" round>
+                       <van-grid :border="false" :column-num="2" v-model="czb" clickable= true >
+                            <van-grid-item @click="chongzhi3">
+                                <font size=5>3.00</font><br>
+                                <van-button round type="info" size="mini">2.91元</van-button>
+                            </van-grid-item>
+                            <van-grid-item @click="chongzhi6">
+                                 <font size="5">6.00</font><br>
+                                <van-button round type="info" size="mini">5.82元</van-button>
+                            </van-grid-item>
+                            <van-grid-item @click="chongzhi12">
+                                <font size="5">12.00</font><br>
+                                <van-button round type="info" size="mini">11.64元</van-button>
+                            </van-grid-item>
+                            <van-grid-item @click="chongzhi30">
+                                 <font size="5">30.00</font><br>
+                                <van-button round type="info" size="mini">29.1元</van-button>
+                            </van-grid-item>
+                            <van-grid-item @click="chongzhi50">
+                                <font size="5">50.00</font><br>
+                                <van-button round type="info" size="mini">48.5元</van-button>
+                            </van-grid-item>
+                            <van-grid-item @click="chongzhi98">
+                                 <font size="5">98.00</font><br>
+                                <van-button round type="info" size="mini">95.06元</van-button>
+                            </van-grid-item>
+                        </van-grid>
+                        
+                   </van-popup>
+                        
                     <van-divider />
+
                     <van-cell title="已购内容" value=">" />
                     <van-cell title="交易记录" value=">" />    
                     <van-cell title="赠送记录" value=">" />
                     <van-cell title="自动购买" value=">" />    
                 </van-cell-group><br><br><br>
                 <van-cell-group inset>
-                    <van-cell title="纸书券" value="0.00      >" />
-                    <van-cell title="纸书币" value=">" />    
+                    <van-cell title="纸书券" >{{user.zsq}}</van-cell>
+                    <van-cell title="纸书币">{{user.zsb}}</van-cell>
                 </van-cell-group>
             </div>
-            
-           
         </div>
     </van-overlay>
-
+   
     <!-- ------------------------遮罩层↑---------------------------- -->
 <hr>
 <hr><hr>
@@ -190,7 +220,6 @@
 
     export default {
          created:function (){
-            
         this.$axios.get('adminload?usertel='+localStorage.getItem('usertel')).then(res=>{
             this.user=res.data.data;
             console.log(this.user)
@@ -201,13 +230,157 @@
             show: false,
             mess: false,
             setting: false,
-            account: false
+            account: false,
+            popups: false,
+            usertel: localStorage.getItem('usertel'),
+            czb: 0
             ,user:{}
         };
     },
     methods: {
         login(){
-            this.$router.push("/login");
+                this.$router.push("/login");
+        },
+        showpopup(){
+            this.popups=true;
+        },
+        chongzhi3(){
+            this.czb=3;
+            this.$axios
+            .get('topup',{
+                params:{
+                    'czb':this.czb,
+                    'usertel':this.usertel
+                }
+                
+            })
+            .then(res=>{
+                this.popups=false;
+                 
+                if(res.data.status==200){
+                    localStorage.setItem("czb",this.czb);
+                    localStorage.setItem("usertel",this.usertel);
+                    this.user.czb+=res.data.data
+                   
+                    // this.user.czb=res.data.data.f
+                }
+            })
+            .catch()
+        },
+         chongzhi6(){
+            this.czb=6;
+            this.$axios
+            .get('topup',{
+                params:{
+                    'czb':this.czb,
+                    'usertel':this.usertel
+                }
+                
+            })
+            .then(res=>{
+                this.popups=false;
+                 
+                if(res.data.status==200){
+                    localStorage.setItem("czb",this.czb);
+                    localStorage.setItem("usertel",this.usertel);
+                    this.user.czb+=res.data.data
+                   
+                    // this.user.czb=res.data.data.f
+                }
+            })
+            .catch()
+        },
+         chongzhi12(){
+            this.czb=12;
+            this.$axios
+            .get('topup',{
+                params:{
+                    'czb':this.czb,
+                    'usertel':this.usertel
+                }
+                
+            })
+            .then(res=>{
+                this.popups=false;
+                 
+                if(res.data.status==200){
+                    localStorage.setItem("czb",this.czb);
+                    localStorage.setItem("usertel",this.usertel);
+                    this.user.czb+=res.data.data
+                   
+                    // this.user.czb=res.data.data.f
+                }
+            })
+            .catch()
+        },
+         chongzhi30(){
+            this.czb=30;
+            this.$axios
+            .get('topup',{
+                params:{
+                    'czb':this.czb,
+                    'usertel':this.usertel
+                }
+                
+            })
+            .then(res=>{
+                this.popups=false;
+                 
+                if(res.data.status==200){
+                    localStorage.setItem("czb",this.czb);
+                    localStorage.setItem("usertel",this.usertel);
+                    this.user.czb+=res.data.data
+                   
+                    // this.user.czb=res.data.data.f
+                }
+            })
+            .catch()
+        },
+         chongzhi50(){
+            this.czb=50;
+            this.$axios
+            .get('topup',{
+                params:{
+                    'czb':this.czb,
+                    'usertel':this.usertel
+                }
+                
+            })
+            .then(res=>{
+                this.popups=false;
+                 
+                if(res.data.status==200){
+                    localStorage.setItem("czb",this.czb);
+                    localStorage.setItem("usertel",this.usertel);
+                    this.user.czb+=res.data.data
+                   
+                    // this.user.czb=res.data.data.f
+                }
+            })
+            .catch()
+        },
+         chongzhi98(){
+            this.czb=98;
+            this.$axios
+            .get('topup',{
+                params:{
+                    'czb':this.czb,
+                    'usertel':this.usertel
+                }
+                
+            })
+            .then(res=>{
+                this.popups=false;
+                 
+                if(res.data.status==200){
+                    localStorage.setItem("czb",this.czb);
+                    localStorage.setItem("usertel",this.usertel);
+                    this.user.czb+=res.data.data
+                   
+                    // this.user.czb=res.data.data.f
+                }
+            })
+            .catch()
         }
         }
     };
