@@ -1,5 +1,6 @@
 <template>
   <div>
+    <br>
     <van-row>
       <van-col span="3">
         <van-icon name="envelop-o" size="25" badge="99+" @click="mess=true"/>
@@ -332,6 +333,7 @@
                 
             })
             .then(res=>{
+              alert("您即将充值3元");
                 this.popups=false;
                  
                 if(res.data.status==200){
@@ -355,6 +357,7 @@
                 
             })
             .then(res=>{
+              alert("您即将充值6元");
                 this.popups=false;
                  
                 if(res.data.status==200){
@@ -378,6 +381,7 @@
                 
             })
             .then(res=>{
+              alert("您即将充值12元");
                 this.popups=false;
                  
                 if(res.data.status==200){
@@ -401,6 +405,7 @@
                 
             })
             .then(res=>{
+              alert("您即将充值30元");
                 this.popups=false;
                  
                 if(res.data.status==200){
@@ -424,6 +429,7 @@
                 
             })
             .then(res=>{
+              alert("您即将充值50元");
                 this.popups=false;
                  
                 if(res.data.status==200){
@@ -447,6 +453,7 @@
                 
             })
             .then(res=>{
+              alert("您即将充值98元");
                 this.popups=false;
                  
                 if(res.data.status==200){

@@ -39,6 +39,11 @@ axios.interceptors.request.use(config=>{
 }
 );
 
+Vue.config.productionTip = false
+// axios.create({
+//   baseURL:"http://localhost:8081"
+// })  
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
