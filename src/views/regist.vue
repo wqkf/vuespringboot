@@ -97,8 +97,8 @@ export default {
 
                     this.$router.push("/login"); 
                 }
-                if(res.data.statusCode===401){
-                    
+                if(res.data.statusCode===400){
+                    alert(res.data.msg);
                 }
             })
             .catch(error=>{
