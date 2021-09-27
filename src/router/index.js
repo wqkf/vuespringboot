@@ -147,7 +147,7 @@ const routes=[
   })
 
     router.beforeEach((to,from,next)=>{
-      if(to.path === '/login'||to.path==='/'||to.path==='/admin'){
+      if(to.path === '/login'||to.path==='/'||to.path==='/admin'||to.path==='/regist'){
          next();
       }else{
         let token  = localStorage.getItem('token');
