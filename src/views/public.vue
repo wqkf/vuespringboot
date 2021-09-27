@@ -36,8 +36,8 @@ export default {
     };
   },
   created: function() {
-    this.$http
-      .get("http://localhost:8081/selectAll1")
+    this.$axios
+      .get("/selectAll1")
       .then(response => {
         this.list = response.data;
       })
@@ -51,8 +51,8 @@ export default {
       Toast("按钮");
     },
     shuju:function(){
-      this.$http
-      .get("http://localhost:8081/selectAll1")
+      this.$axios
+      .get("/selectAll1")
       .then(response => {
         this.list = response.data;
       })

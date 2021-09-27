@@ -28,8 +28,8 @@ export default {
     }
   },
   created:function(){
-    this.$http
-    .get('http://localhost:8081/selectAll3')
+    this.$axios
+    .get('/selectAll3')
     .then(response=>{
       this.arrlist=response.data
     })

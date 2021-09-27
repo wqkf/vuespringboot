@@ -59,7 +59,7 @@ export default {
     };
   },
   created: function() {
-    this.$http
+    this.$axios
       .get("/selectAll6", { params: { uid: this.uid } })
       .then(response => {
         this.arrlist = response.data;

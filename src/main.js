@@ -13,6 +13,7 @@ import moment from 'moment'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { Dialog } from 'vant';
+
 //时间格式转化
 Vue.prototype.$moment=moment
 

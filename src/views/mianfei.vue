@@ -21,6 +21,7 @@
 <script>
 let pageNum = 1;
 export default {
+    
   created: function() {
     this.$axios
       .get("home/anload?id=" + 1)
