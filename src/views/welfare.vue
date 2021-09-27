@@ -26,8 +26,8 @@ export default {
     }
   },
   created:function(){
-    this.$http
-    .get('http://localhost:8081/selectAll2')
+    this.$axios
+    .get('/selectAll2')
     .then(response=>{
       this.lists=response.data
     })

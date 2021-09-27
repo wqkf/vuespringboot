@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <br>
     <van-row>
@@ -277,6 +278,9 @@
 
 
 <script>
+import { async } from "q";
+import { Dialog } from 'vant';
+
 
     export default {
   
@@ -466,33 +470,28 @@
             })
             .catch()
         }
-        ,vip(){
-       this.$confirm('这将让你损失30元', '你确定吗', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-            if(this.user.czb>=30){
-           this.$axios.get('maivip?utel='+localStorage.getItem('utel')
-           .then(res=>{
-               this.user=res.data.data
-               this.$message({
-            type: 'success',
-            message: '购买成功!'
-            
-          });
-           }).catch())
-           }else{
-               alert("你连30都没有")
-           }
-          
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消购买'
-          });          
-        });
+        , vip(){
+     
+    Dialog.confirm({
+  title: '确认购买',
+  message: '这将让你失去30',
+})
+  .then(() => {
+    // on confirm
+    if(this.user.czb>=30){
+      this.$axios.get('/maivip?utel='+localStorage.getItem("usertel"))
+      .then(res=>{
+       localStorage.setItem("userifvip",res.data.data.ifvip)
+      }).catch();
+    }else{
+      alert("你连30都没有")
+    }
+  })
+  .catch(() => {
+    // on cancel
+  });
         }
+      
         }
     };
 

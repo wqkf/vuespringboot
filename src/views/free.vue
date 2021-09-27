@@ -97,13 +97,13 @@ export default {
     };
   },
   created: function() {
-    this.$http
+    this.$axios
       .get("/selectAll4")
       .then(response => {
         this.arrlist = response.data;
       })
       .catch();
-    this.$http
+    this.$axios
       .post("/selectAll5")
       .then(response => {
         this.arrlist1 = response.data;
@@ -127,7 +127,7 @@ export default {
         this.pageno = 1;
       }
       console.log(this.pageno);
-      this.$http
+      this.$axios
         .get("/selectAll4", { params: { pageNos: this.pageno } })
         .then(response => {
           this.showJiazai = false;
@@ -141,7 +141,7 @@ export default {
       if(this.pageno1===7){
         this.pageno1=1
       }
-      this.$http
+      this.$axios
         .get("/selectAll5", { params: { pageNos: this.pageno1 } })
         .then(response => {
           this.showJiazais = false;

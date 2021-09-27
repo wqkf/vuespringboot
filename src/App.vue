@@ -14,7 +14,7 @@
     <van-tabbar v-model="active" active-color="#ee0a24" inactive-color="#000">
   <van-tabbar-item icon="home-o" to="/">主页</van-tabbar-item>
   <van-tabbar-item icon="coupon-o"  to="/bookrack">书架</van-tabbar-item>
-  <van-tabbar-item icon="fire-o"  to="/userInfo">圈子</van-tabbar-item>
+  <van-tabbar-item icon="fire-o"  to="/found">圈子</van-tabbar-item>
   <van-tabbar-item icon="shop-collect" to="/order">购物车</van-tabbar-item>
   <van-tabbar-item icon="setting-o" to="/admin">设置</van-tabbar-item>
 </van-tabbar>
