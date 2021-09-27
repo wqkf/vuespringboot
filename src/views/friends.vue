@@ -7,7 +7,15 @@
       left-arrow
       @click-left="onClickLeft"
     />
-    <van-search v-model="value" placeholder="请输入搜索关键词"/>
+    <form action="/">
+  <van-search
+    v-model="value"
+    show-action
+    placeholder="请输入搜索关键词"
+    @search="onSearch"
+    @cancel="onCancel"
+  />
+</form>
     <van-row  v-for="(alls,index) in alllist" :key="index">
       <van-col span="3" id="tp">
         <van-image round width="2rem" height="2rem" :src="alls.price"/>
@@ -31,8 +39,8 @@ export default {
     };
   },
   created:function(){
-    this.$http
-    .get('http://localhost:8081/selectAll')
+    this.$axios
+    .get('/selectAll')
     .then(response=>{
       console.log(response)
      this.alllist= response.data
@@ -43,7 +51,17 @@ export default {
   methods: {
     onClickLeft() {
       this.$router.push("/friend")
-    }
+    },onSearch(val) {
+      this.$axios
+      .get("/selectAll7/"+this.value)
+      .then(response=>{
+        this.alllist=response.data;
+      })
+      .catch();
+    },
+    onCancel() {
+      Toast('取消');
+    },
   },
 };
 </script>
