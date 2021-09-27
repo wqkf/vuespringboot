@@ -78,7 +78,7 @@ export default {
             alert(res.data.msg);
           }
           if(res.data.statusCode==401){
-            alert(res.data.msg);
+            alert(res.data.msg)
           }
         })
         .catch(error => {

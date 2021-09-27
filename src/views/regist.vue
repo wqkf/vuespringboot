@@ -78,6 +78,7 @@ export default {
          back(){
             this.$router.push("/admin");
         },
+        
         onSubmit(values) {
             
             this.$axios
@@ -94,7 +95,7 @@ export default {
                     localStorage.setItem("email",this.email);
                     localStorage.setItem("tel",this.tel);
                     localStorage.setItem("birth",this.birth);
-
+                    // 跳转至登录
                     this.$router.push("/login"); 
                 }
                 if(res.data.statusCode===400){
