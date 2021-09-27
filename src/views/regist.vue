@@ -7,7 +7,15 @@
         </van-row>
        
         <van-form @submit="onSubmit">
-           
+            <div class="titleImg" title="选择头像" @click="touxiang">
+                 <van-image
+                    round
+                    width="10rem"
+                    height="10rem"
+                    src="https://img01.yzcdn.cn/vant/cat.jpeg"
+                    />
+            </div>
+          
             <van-field
                 v-model="nickname"
                 name="昵称"
