@@ -7,8 +7,8 @@
       </van-row>
     </div>
     <van-col span="10" offset="7" class="huanye">
-      <el-button icon="el-icon-back" circle @click="houtui()"></el-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <el-button icon="el-icon-right" circle @click="qianjin()"></el-button>
+      <el-button icon="el-icon-back" circle  @click="houtui()"></el-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <el-button icon="el-icon-right" circle  @click="qianjin()"></el-button>
     </van-col>
   </div>
 </template>
@@ -82,6 +82,9 @@ export default {
     https://img1.baidu.com/it/u=2840212519,
     1973465711&fm=26&fmt=auto
   );
+}
+.huanye{
+
 }
 </style>
 
