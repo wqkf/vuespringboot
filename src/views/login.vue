@@ -74,6 +74,12 @@ export default {
             localStorage.setItem("token", res.data.data);
             this.$router.push("/admin");
           }
+          if(res.data.statusCode==400){
+            alert(res.data.msg);
+          }
+          if(res.data.statusCode==401){
+            alert(res.data.msg)
+          }
         })
         .catch(error => {
           console.log(error);
