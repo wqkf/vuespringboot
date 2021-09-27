@@ -287,7 +287,7 @@ import { Dialog } from 'vant';
          created:function (){
         this.$axios.get('adminload?usertel='+localStorage.getItem('usertel')).then(res=>{
             this.user=res.data.data;
-            console.log(this.user)
+            localStorage.setItem('userifvip',res.data.data.ifvip)
             this.denglu="主页>"
         }).catch();
     },
