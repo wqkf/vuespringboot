@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>男生小说</h2>
+    <h2>学术类</h2>
     <van-card
       v-for="book in books"
       :key="book"
@@ -16,7 +16,7 @@
       </template>
     </van-card>
 
-    <el-button type="primary" round @click="huan()">点击换一批</el-button>
+<!--    <el-button type="primary" round @click="huan()">点击换一批</el-button>-->
   </div>
 </template>
 <script>

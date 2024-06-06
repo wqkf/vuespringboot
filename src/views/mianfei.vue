@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>免费小说</h2>
+    <h2>文学类</h2>
     <van-card
       v-for="book in books"
       :key="book"
@@ -15,13 +15,13 @@
       </template>
     </van-card>
 
-    <el-button type="primary" round @click="huan()">点击换一批</el-button>
+<!--    <el-button type="primary" round @click="huan()">点击换一批</el-button>-->
   </div>
 </template>
 <script>
 let pageNum = 1;
 export default {
-    
+
   created: function() {
     this.$axios
       .get("home/anload?id=" + 1)

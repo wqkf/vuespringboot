@@ -11,11 +11,11 @@
     </van-row>
     <van-form @submit="onSubmit">
       <van-field
-        v-model="usertel"
-        name="手机号"
-        label="手机号"
-        placeholder="手机号"
-        :rules="[{ required: true, message: '请填写手机号' }]"
+        v-model="nickname"
+        name="昵称"
+        label="昵称"
+        placeholder="昵称"
+        :rules="[{ required: true, message: '请填写昵称' }]"
       />
       <van-divider/>
       <van-divider/>
@@ -54,7 +54,7 @@ export default {
   name: "login",
   data() {
     return {
-      usertel: "",
+      nickname: "",
       password: ""
     };
   },
@@ -63,15 +63,15 @@ export default {
       // 发送登录请求
 
       this.$axios
-        .post("login", {
+        .post("users/login", {
           password: this.password,
-          usertel: this.usertel
+          nickname: this.nickname
         })
         .then(res => {
-          if (res.data.statusCode == 200) {
-            localStorage.setItem("usertel", this.usertel);
+          if (res.data.code == 0) {
+            localStorage.setItem("nickname", this.nickname);
 
-            localStorage.setItem("token", res.data.data);
+            localStorage.setItem("uid", res.data.data.id);
             this.$router.push("/admin");
           }
           if(res.data.statusCode==400){

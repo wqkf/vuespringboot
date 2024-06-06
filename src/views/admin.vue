@@ -3,13 +3,13 @@
   <div>
     <br>
     <van-row>
-      <van-col span="3">
-        <van-icon name="envelop-o" size="25" badge="99+" @click="mess=true"/>
-      </van-col>
-      <van-col span="17"></van-col>
-      <van-col span="4">
-        <van-icon name="setting-o" size="25" @click="setting = true"/>
-      </van-col>
+<!--      <van-col span="3">-->
+<!--        <van-icon name="envelop-o" size="25" badge="99+" @click="mess=true"/>-->
+<!--      </van-col>-->
+<!--      <van-col span="17"></van-col>-->
+<!--      <van-col span="4">-->
+<!--        <van-icon name="setting-o" size="25" @click="setting = true"/>-->
+<!--      </van-col>-->
     </van-row>
 
     <br>
@@ -26,7 +26,7 @@
                 <!-- <font size="1"> 编辑个人资料</font> -->
                 </van-col>
                 <van-col span="4"><br><font size="1" @click="login">{{denglu}}</font></van-col>
-                    
+
             </van-row>
         </van-col>
       </van-row>
@@ -34,162 +34,169 @@
     <br>
     <br>
     <van-row gutter="20">
-        <van-col span="12" @click="account = true">
+        <van-col span="12" @click="account = false">
             <van-cell>
                 <van-icon name="gold-coin" size="25"/>&nbsp;
-                <font size="3">账户</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                <font size="1">余额 {{user.zengb+user.czb}}</font>
+                <font size="3">账户</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <font size="1" v-if="user.ifvip === 0">剩余借阅次数 {{user.surplus}}</font>
+                <font size="1" v-if="user.ifvip === 1">不限制借阅次数</font>
+
             </van-cell>
         </van-col>
         <van-col span="12">
-            <van-cell>
+            <van-cell v-if="user.ifvip === 1">
                 <van-icon name="fire" size="25"/>&nbsp;
-                <font size="3" @click="vip()">购买vip</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-                <font size="1">16天</font>
+                <font size="3" >vip</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                <font size="1">会员将于{{formattedDate(user.deadline)}}到期</font>
             </van-cell>
+          <van-cell v-if="user.ifvip === 0">
+            <van-icon name="fire" size="25"/>&nbsp;
+            <font size="3" @click="vip()">点击购买vip</font><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+            <font size="1">5元半年，每月借阅不限次数</font>
+          </van-cell>
         </van-col>
     </van-row>
     <br>
     <br>
-    <van-row gutter="20">
-      <van-col span="12">
-        <van-cell>
-          <van-icon name="shopping-cart" size="25"/>&nbsp;
-          <router-link to="/order"><font size="3">购物车</font></router-link>
-          <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <font size="1">1件待购买</font>
-        </van-cell>
-      </van-col>
-      <van-col span="12">
-        <van-cell>
-          <van-icon name="bag" size="25"/>&nbsp;
-          <router-link to="/cart"><font size="3">订单</font></router-link>
-          <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-          <font size="1">管理订单</font>
-        </van-cell>
-      </van-col>
-    </van-row>
-    <br>
-    <br>
+<!--    <van-row gutter="20">-->
+<!--      <van-col span="12">-->
+<!--        <van-cell>-->
+<!--          <van-icon name="shopping-cart" size="25"/>&nbsp;-->
+<!--          <router-link to="/order"><font size="3">购物车</font></router-link>-->
+<!--          <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--          <font size="1">1件待购买</font>-->
+<!--        </van-cell>-->
+<!--      </van-col>-->
+<!--      <van-col span="12">-->
+<!--        <van-cell>-->
+<!--          <van-icon name="bag" size="25"/>&nbsp;-->
+<!--          <router-link to="/cart"><font size="3">订单</font></router-link>-->
+<!--          <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;-->
+<!--          <font size="1">管理订单</font>-->
+<!--        </van-cell>-->
+<!--      </van-col>-->
+<!--    </van-row>-->
+<!--    <br>-->
+<!--    <br>-->
 
-    <van-cell-group inset>
-      <van-cell>
-        <van-row type="flex">
-          <van-icon name="medal" size="25"/>&nbsp;&nbsp;
-          <font size="3">读书排行榜</font>
-        </van-row>
-        <van-row type="flex" justify="end">
-          <font size="1">本周尚未开始阅读</font>
-        </van-row>
-      </van-cell>
-      <br>
-      <br>
-      <van-cell>
-        <van-row type="flex">
-          <van-icon name="eye" size="25"/>&nbsp;&nbsp;
-          <font size="3">关注</font>
-        </van-row>
-        <van-row type="flex" justify="end">
-          0
-          <font size="1">人关注我</font>
-        </van-row>
-      </van-cell>
-    </van-cell-group>
-    <br>
-    <br>
+<!--    <van-cell-group inset>-->
+<!--      <van-cell>-->
+<!--        <van-row type="flex">-->
+<!--          <van-icon name="medal" size="25"/>&nbsp;&nbsp;-->
+<!--          <font size="3">读书排行榜</font>-->
+<!--        </van-row>-->
+<!--        <van-row type="flex" justify="end">-->
+<!--          <font size="1">本周尚未开始阅读</font>-->
+<!--        </van-row>-->
+<!--      </van-cell>-->
+<!--      <br>-->
+<!--      <br>-->
+<!--      <van-cell>-->
+<!--        <van-row type="flex">-->
+<!--          <van-icon name="eye" size="25"/>&nbsp;&nbsp;-->
+<!--          <font size="3">关注</font>-->
+<!--        </van-row>-->
+<!--        <van-row type="flex" justify="end">-->
+<!--          0-->
+<!--          <font size="1">人关注我</font>-->
+<!--        </van-row>-->
+<!--      </van-cell>-->
+<!--    </van-cell-group>-->
+<!--    <br>-->
+<!--    <br>-->
 
-    <van-cell-group inset>
-      <van-cell>
-        <van-row type="flex">
-          <van-icon name="label" size="25"/>&nbsp;&nbsp;
-          <font size="3">笔记</font>
-        </van-row>
-      </van-cell>
-      <br>
-      <br>
-      <van-cell>
-        <van-row type="flex">
-          <van-icon name="coupon" size="25"/>&nbsp;&nbsp;
-          <font size="3">读过和阅读</font>
-        </van-row>
-        <van-row type="flex" justify="end">
-          0
-          <font size="1">个阅读记录</font>
-        </van-row>
-      </van-cell>
-    </van-cell-group>
-    <!-- ----------------------遮罩层↓--------------------------- -->
-    <!-- 2、通知&私信 -->
+<!--    <van-cell-group inset>-->
+<!--      <van-cell>-->
+<!--        <van-row type="flex">-->
+<!--          <van-icon name="label" size="25"/>&nbsp;&nbsp;-->
+<!--          <font size="3">笔记</font>-->
+<!--        </van-row>-->
+<!--      </van-cell>-->
+<!--      <br>-->
+<!--      <br>-->
+<!--      <van-cell>-->
+<!--        <van-row type="flex">-->
+<!--          <van-icon name="coupon" size="25"/>&nbsp;&nbsp;-->
+<!--          <font size="3">读过和阅读</font>-->
+<!--        </van-row>-->
+<!--        <van-row type="flex" justify="end">-->
+<!--          0-->
+<!--          <font size="1">个阅读记录</font>-->
+<!--        </van-row>-->
+<!--      </van-cell>-->
+<!--    </van-cell-group>-->
+<!--    &lt;!&ndash; &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;遮罩层↓-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; &ndash;&gt;-->
+<!--    &lt;!&ndash; 2、通知&私信 &ndash;&gt;-->
 
-    <van-overlay :show="mess" @click="mess = false">
-      <div class="wrapper" @click.stop>
-        <div class="block">
-          <van-divider/>
+<!--    <van-overlay :show="mess" @click="mess = false">-->
+<!--      <div class="wrapper" @click.stop>-->
+<!--        <div class="block">-->
+<!--          <van-divider/>-->
 
-          <van-row>
-            <van-col span="2">
-              <van-icon name="arrow-left" size="25" @click="mess = false"/>
-            </van-col>
-            <van-col span="20">通知|私信</van-col>
-            <van-col span="2"></van-col>
-          </van-row>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>QAQ !
-          <br>
-          <br>
-          <font size="2">暂时没有收到通知或私信</font>
-        </div>
-      </div>
-    </van-overlay>
+<!--          <van-row>-->
+<!--            <van-col span="2">-->
+<!--              <van-icon name="arrow-left" size="25" @click="mess = false"/>-->
+<!--            </van-col>-->
+<!--            <van-col span="20">通知|私信</van-col>-->
+<!--            <van-col span="2"></van-col>-->
+<!--          </van-row>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>QAQ !-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <font size="2">暂时没有收到通知或私信</font>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </van-overlay>-->
     <!-- 3、设置 -->
-    <van-overlay :show="setting" @click="setting = false">
-      <div class="wrapper" @click.stop>
-        <div class="block">
-          <van-divider/>
+<!--    <van-overlay :show="setting" @click="setting = false">-->
+<!--      <div class="wrapper" @click.stop>-->
+<!--        <div class="block">-->
+<!--          <van-divider/>-->
 
-          <van-row>
-            <van-col span="2">
-              <van-icon name="arrow-left" size="25" @click="setting = false"/>
-            </van-col>
-            <van-col span="20">通知|私信</van-col>
-            <van-col span="2"></van-col>
-          </van-row>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>QAQ !
-          <br>
-          <br>
-          <font size="2">暂时没有收到通知或私信</font>
-        </div>
-      </div>
-    </van-overlay>
+<!--          <van-row>-->
+<!--            <van-col span="2">-->
+<!--              <van-icon name="arrow-left" size="25" @click="setting = false"/>-->
+<!--            </van-col>-->
+<!--            <van-col span="20">通知|私信</van-col>-->
+<!--            <van-col span="2"></van-col>-->
+<!--          </van-row>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <br>QAQ !-->
+<!--          <br>-->
+<!--          <br>-->
+<!--          <font size="2">暂时没有收到通知或私信</font>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </van-overlay>-->
     <!-- 4、账户 -->
     <van-overlay :show="account" @click="setting = account">
       <div class="wrapper" @click.stop>
@@ -202,7 +209,7 @@
                         账户
                     </van-col>
                     <van-col span="2"></van-col>
-                </van-row>  
+                </van-row>
                 <van-divider />
                 <van-cell-group inset>
                     <h2>{{user.zengb+user.czb}}</h2>
@@ -236,22 +243,22 @@
                                 <van-button round type="info" size="mini">95.06元</van-button>
                             </van-grid-item>
                         </van-grid>
-                        
+
                    </van-popup>
-                        
+
                     <van-divider />
 
                     <van-cell title="已购内容" value=">" />
-                    <van-cell title="交易记录" value=">" />    
+                    <van-cell title="交易记录" value=">" />
                     <van-cell title="赠送记录" value=">" />
-                    <van-cell title="自动购买" value=">" />    
+                    <van-cell title="自动购买" value=">" />
                 </van-cell-group><br><br><br>
                 <van-cell-group inset>
                     <van-cell title="纸书券" >{{user.zsq}}</van-cell>
                     <van-cell title="纸书币">{{user.zsb}}</van-cell>
                 </van-cell-group>
             </div>
-            
+
             <van-sku
   v-model="show"
   :sku="sku"
@@ -265,15 +272,15 @@
   @add-cart="onAddCartClicked"
 />
         </div>
-      
+
     </van-overlay>
-   
+
     <!-- ------------------------遮罩层↑---------------------------- -->
     <!-- <hr>
     <hr>
     <hr> -->
   </div>
-  
+
 </template>
 
 
@@ -283,17 +290,16 @@ import { Dialog } from 'vant';
 
 
     export default {
-  
          created:function (){
-        this.$axios.get('adminload?usertel='+localStorage.getItem('usertel')).then(res=>{
-            this.user=res.data.data;
-            localStorage.setItem('userifvip',res.data.data.ifvip)
-            this.denglu="主页>"
-        }).catch();
+          this.$axios.get('users/adminload?nickname='+localStorage.getItem('nickname')).then(res=>{
+              this.user=res.data.data;
+              this.ifvip=this.user.ifvip;
+              this.denglu="主页>"
+          }).catch();
     },
     data() {
         return {
-            show: false,
+            ifvip: "",
             mess: false,
             setting: false,
             account: false,
@@ -318,10 +324,10 @@ import { Dialog } from 'vant';
     methods: {
         login(){
             if(this.denglu=="主页>"){
-                this.$router.push("/cart")
+                this.$router.push("/")
             }else{
                 this.$router.push("/login");
-        
+
         }},
         showpopup(){
             this.popups=true;
@@ -334,17 +340,17 @@ import { Dialog } from 'vant';
                     'czb':this.czb,
                     'usertel':this.usertel
                 }
-                
+
             })
             .then(res=>{
               alert("您即将充值3元");
                 this.popups=false;
-                 
+
                 if(res.data.status==200){
                     localStorage.setItem("czb",this.czb);
                     localStorage.setItem("usertel",this.usertel);
                     this.user.czb+=res.data.data
-                   
+
                     // this.user.czb=res.data.data.f
                 }
             })
@@ -358,17 +364,17 @@ import { Dialog } from 'vant';
                     'czb':this.czb,
                     'usertel':this.usertel
                 }
-                
+
             })
             .then(res=>{
               alert("您即将充值6元");
                 this.popups=false;
-                 
+
                 if(res.data.status==200){
                     localStorage.setItem("czb",this.czb);
                     localStorage.setItem("usertel",this.usertel);
                     this.user.czb+=res.data.data
-                   
+
                     // this.user.czb=res.data.data.f
                 }
             })
@@ -382,17 +388,17 @@ import { Dialog } from 'vant';
                     'czb':this.czb,
                     'usertel':this.usertel
                 }
-                
+
             })
             .then(res=>{
               alert("您即将充值12元");
                 this.popups=false;
-                 
+
                 if(res.data.status==200){
                     localStorage.setItem("czb",this.czb);
                     localStorage.setItem("usertel",this.usertel);
                     this.user.czb+=res.data.data
-                   
+
                     // this.user.czb=res.data.data.f
                 }
             })
@@ -406,17 +412,17 @@ import { Dialog } from 'vant';
                     'czb':this.czb,
                     'usertel':this.usertel
                 }
-                
+
             })
             .then(res=>{
               alert("您即将充值30元");
                 this.popups=false;
-                 
+
                 if(res.data.status==200){
                     localStorage.setItem("czb",this.czb);
                     localStorage.setItem("usertel",this.usertel);
                     this.user.czb+=res.data.data
-                   
+
                     // this.user.czb=res.data.data.f
                 }
             })
@@ -430,17 +436,17 @@ import { Dialog } from 'vant';
                     'czb':this.czb,
                     'usertel':this.usertel
                 }
-                
+
             })
             .then(res=>{
               alert("您即将充值50元");
                 this.popups=false;
-                 
+
                 if(res.data.status==200){
                     localStorage.setItem("czb",this.czb);
                     localStorage.setItem("usertel",this.usertel);
                     this.user.czb+=res.data.data
-                   
+
                     // this.user.czb=res.data.data.f
                 }
             })
@@ -454,44 +460,55 @@ import { Dialog } from 'vant';
                     'czb':this.czb,
                     'usertel':this.usertel
                 }
-                
+
             })
             .then(res=>{
               alert("您即将充值98元");
                 this.popups=false;
-                 
+
                 if(res.data.status==200){
                     localStorage.setItem("czb",this.czb);
                     localStorage.setItem("usertel",this.usertel);
                     this.user.czb+=res.data.data
-                   
+
                     // this.user.czb=res.data.data.f
                 }
             })
             .catch()
         }
-        , vip(){
-     
+        ,
+      formattedDate(obj) {
+        return new Date(obj).toLocaleDateString('zh-CN', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
+      },vip(){
+
     Dialog.confirm({
   title: '确认购买',
-  message: '这将让你失去30',
+  message: '会员充值5元，半年内不限次数',
 })
   .then(() => {
     // on confirm
-    if(this.user.czb>=30){
-      this.$axios.get('/maivip?utel='+localStorage.getItem("usertel"))
+      this.$axios.get('users/update?nickname='+localStorage.getItem("nickname"))
       .then(res=>{
-       localStorage.setItem("userifvip",res.data.data.ifvip)
+       localStorage.setItem("userifvip", true)
+        this.$axios.get('users/adminload?nickname='+localStorage.getItem('nickname')).then(res=>{
+          this.user=res.data.data;
+          this.ifvip=this.user.ifvip;
+          this.denglu="主页>"
+        }).catch();
       }).catch();
-    }else{
-      alert("你连30都没有")
-    }
   })
   .catch(() => {
     // on cancel
   });
         }
-      
+
         }
     };
 

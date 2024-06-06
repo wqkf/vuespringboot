@@ -11,56 +11,56 @@
     <van-col span="24">
       <span class="tuijian">{{book.title}}</span>
     </van-col>
-    <van-col span="10">
-      <span>
-        整体星级
-        <el-rate v-model="book.xingji" show-text></el-rate>
-      </span>
-    </van-col>
-    <van-col span="4">
-      <span>
-        推荐
-        <br>一般
-        <br>不行
-      </span>
-    </van-col>
-    <van-col span="8">
-      <van-progress inactive :percentage="70" pivot-text/>
-      <br>
-      <van-progress inactive :percentage="20" pivot-text/>
-      <br>
-      <van-progress inactive :percentage="10" pivot-text/>
-    </van-col>
+<!--    <van-col span="10">-->
+<!--      <span>-->
+<!--        整体星级-->
+<!--        <el-rate v-model="book.xingji" show-text></el-rate>-->
+<!--      </span>-->
+<!--    </van-col>-->
+<!--    <van-col span="4">-->
+<!--      <span>-->
+<!--        推荐-->
+<!--        <br>一般-->
+<!--        <br>不行-->
+<!--      </span>-->
+<!--    </van-col>-->
+<!--    <van-col span="8">-->
+<!--      <van-progress inactive :percentage="70" pivot-text/>-->
+<!--      <br>-->
+<!--      <van-progress inactive :percentage="20" pivot-text/>-->
+<!--      <br>-->
+<!--      <van-progress inactive :percentage="10" pivot-text/>-->
+<!--    </van-col>-->
     <van-col span="24">
-      <van-grid direction="horizontal" :column-num="3" :gutter="30">
+      <van-grid direction="horizontal" :column-num="1" :gutter="30">
         <van-grid-item>
-          <van-icon name="smile-o" size="30" @click="openpl(4)"/>推荐
+          <van-icon name="smile-o" size="30" @click="openpl(4)"/>点击评论
         </van-grid-item>
-        <van-grid-item>
-          <van-icon name="exchange" size="30" @click="openpl(3)"/>一般
-        </van-grid-item>
-        <van-grid-item>
-          <van-icon name="closed-eye" size="30" @click="openpl(2)"/>不行
-        </van-grid-item>
+<!--        <van-grid-item>-->
+<!--          <van-icon name="exchange" size="30" @click="openpl(3)"/>一般-->
+<!--        </van-grid-item>-->
+<!--        <van-grid-item>-->
+<!--          <van-icon name="closed-eye" size="30" @click="openpl(2)"/>不行-->
+<!--        </van-grid-item>-->
       </van-grid>
     </van-col>
-    <van-col span="20" offset="2">
-      <el-divider></el-divider>
-    </van-col>
-    <van-col span="10">
-      <span class="putong">阅读</span>
-      <br>
-      <span class="fangda">共{{book.readers}}万人</span>
-      <br>
-      <span class="putong">阅读此书</span>
-    </van-col>
-    <van-col span="14">
-      <span class="putong">字数</span>
-      <br>
-      <span class="fangda">共{{book.words}}万字</span>
-      <br>
-      <span class="putong">完结于{{book.sjdate}}</span>
-    </van-col>
+<!--    <van-col span="20" offset="2">-->
+<!--      <el-divider></el-divider>-->
+<!--    </van-col>-->
+<!--    <van-col span="10">-->
+<!--      <span class="putong">阅读</span>-->
+<!--      <br>-->
+<!--      <span class="fangda">共{{book.readers}}万人</span>-->
+<!--      <br>-->
+<!--      <span class="putong">阅读此书</span>-->
+<!--    </van-col>-->
+<!--    <van-col span="14">-->
+<!--      <span class="putong">字数</span>-->
+<!--      <br>-->
+<!--      <span class="fangda">共{{book.words}}万字</span>-->
+<!--      <br>-->
+<!--      <span class="putong">完结于{{book.sjdate}}</span>-->
+<!--    </van-col>-->
     <van-col span="20" offset="2">
       <el-divider></el-divider>
     </van-col>
@@ -105,19 +105,19 @@ export default {
       .get("home/bookload?id=" + id)
       .then(res => {
         this.book = res.data.data;
-        localStorage.setItem("bookifvip", this.book.sfvip);
-        var words = this.book.words;
-        var a = words / 10000;
-        //四舍五入取小数点后两位
-        a = a.toFixed(2);
-        this.book.words = a;
-        words = this.book.readers;
-        a = words / 10000;
-        a = a.toFixed(2);
-        this.book.readers = a;
-        words = this.book.sjdate;
-        words = moment().format("YYYY年MM月DD日");
-        this.book.sjdate = words;
+        // localStorage.setItem("bookifvip", this.book.sfvip);
+        // var words = this.book.words;
+        // var a = words / 10000;
+        // //四舍五入取小数点后两位
+        // a = a.toFixed(2);
+        // this.book.words = a;
+        // words = this.book.readers;
+        // a = words / 10000;
+        // a = a.toFixed(2);
+        // this.book.readers = a;
+        // words = this.book.sjdate;
+        // words = moment().format("YYYY年MM月DD日");
+        // this.book.sjdate = words;
       })
       .catch();
 
@@ -145,12 +145,12 @@ export default {
     },
     pinglun() {
       this.$axios
-        .get("home/pinglun", {
-          params: {
+        .post("home/pinglun",
+          {
             bid: id,
-            pinglun: this.message,
-            token: localStorage.getItem("token")
-          }
+            context: this.message,
+            uid: localStorage.getItem("uid")
+
         })
         .then(res => {
           this.pls = res.data.data;

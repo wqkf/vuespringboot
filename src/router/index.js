@@ -120,7 +120,7 @@ const routes=[
       path: '/bookrack',
       component: BookrackView,
       children: [
-       
+
         {
           path: '/book',
           component: BookView,
@@ -134,11 +134,11 @@ const routes=[
               component: StorebookView,
             }
           ]
-         
-        }, 
+
+        },
       ]
     },
-  
+
   ]
 
   const router=new Router({
@@ -150,9 +150,9 @@ const routes=[
       if(to.path === '/login'||to.path==='/'||to.path==='/admin'||to.path==='/regist'){
          next();
       }else{
-        let token  = localStorage.getItem('token');
-        
-        if(token === null || token ===''){
+        let uid  = localStorage.getItem('uid');
+
+        if(uid === null || uid ===''){
           next('/login');
         }else{
           next();

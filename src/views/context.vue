@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     qianjin() {
-      if (localStorage.getItem("userifvip")==true) {
+      if (localStorage.getItem("userifvip")=='true') {
         if (this.page > this.books.length) {
           alert("这是最后一章");
         } else {
@@ -48,7 +48,7 @@ export default {
           this.book = this.books[this.page];
         }
       } else {
-        if (localStorage.getItem("bookifvip")==true) {
+        if (localStorage.getItem("bookifvip")=='true') {
           if (this.page >= 2) {
             alert("往后是vip章节，请开通vip");
           } else {

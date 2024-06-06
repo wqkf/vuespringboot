@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h2>女生小说</h2>
+    <h2>非小说类散文</h2>
    <van-card v-for="book in books" :key="book"
     :desc="book.title"
     :title="book.name"
@@ -12,36 +12,36 @@
    <van-cell title="作者" :value="book.actor"  class="actor1"/>
    <van-cell  :value="book.jianjie" class="jianjie"/>
   </template>
-  
+
 </van-card>
- 
-<el-button type="primary" round @click="huan()">点击换一批</el-button>
+
+<!--<el-button type="primary" round @click="huan()">点击换一批</el-button>-->
 </div>
 </template>
 <script>
 let pageNum=1;
 export default {
-    
+
     created:function(){
-        
+
          this.$axios.get('home/anload?id='+3).then(res=>{
              this.books=res.data.data
          }).catch()
-     
+
     },
     data(){
         return{
           books:[]
-          
+
         }
     }
     ,methods:{
-         
+
      huan:function(){
-         
+
          this.$axios.get('home/anload',{params:{pageNum:pageNum,id:3}}).then(res=>{
              this.books=res.data.data;
-             
+
          }).catch()
          pageNum+=5;
      }
@@ -78,7 +78,7 @@ export default {
     width: 100px;
     margin: auto;
     height: 45px;
-    
+
 }
 .jianjie{
     font-size: 8px;

@@ -6,14 +6,14 @@
       </template>
     </van-search>
 
-    <el-tag @click="biaoqian(0)">分类</el-tag>
-    <el-tag type="success" @click="biaoqian(1)">免费</el-tag>
-    <el-tag type="info" @click="biaoqian(2)">男生小说</el-tag>
-    <el-tag type="warning" @click="biaoqian(3)">女生小说</el-tag>
-    <el-tag type="danger" @click="biaoqian(4)">新书</el-tag>
+<!--    <el-tag @click="biaoqian(0)">分类</el-tag>-->
+    <el-tag type="success" @click="biaoqian(1)">文学类</el-tag>
+    <el-tag type="info" @click="biaoqian(2)">学术类</el-tag>
+    <el-tag type="warning" @click="biaoqian(3)">非小说类散文</el-tag>
+    <el-tag type="danger" @click="biaoqian(4)">小说</el-tag>
 
-    <el-row v-for=" (book) in books" :key="book.index">
-      <el-col :span="8">
+    <el-row v-for=" (book) in books" :key="book.index" type="flex" justify="center" align="middle" >
+      <el-col :span="15">
         <el-card :body-style="{ padding: '0px' }">
           <router-link :to="{name:'id',params:{id:book.id}}">
             <img :src="book.img" class="image">
@@ -23,10 +23,10 @@
             <br>
             <span class="font1">{{book.actor}}</span>
             <br>
-            <span class="font1">推荐评分:{{book.rate}}</span>
+<!--            <span class="font1">推荐评分:{{book.rate}}</span>-->
             <div class="bottom clearfix">
-              <el-rate v-model="book.xingji" show-text></el-rate>
-              <el-button type="text" class="button" @click="shoucang(book.id)">收藏</el-button>
+<!--              <el-rate v-model="book.xingji" show-text></el-rate>-->
+              <el-button type="text" class="button" @click="shoucang(book.id)">借阅</el-button>
             </div>
           </div>
         </el-card>
@@ -36,19 +36,10 @@
 </template>
 <script>
 export default {
-  created: function() {
-    this.$axios
-      .get("home/load")
-      .then(res => {
-        this.books = res.data.data;
-        console.log(res.data.data);
-      })
-      .catch();
-  },
   data() {
     return {
       value: "",
-
+      uid: localStorage.getItem('uid'),
       books: [
         {
           img: "",
@@ -60,22 +51,31 @@ export default {
       ]
     };
   },
+  created: function() {
+    this.$axios
+      .get("home/load?uid=" + this.uid)
+      .then(res => {
+        this.books = res.data.data;
+        console.log(res.data.data);
+      })
+      .catch();
+  },
   methods: {
     onSearch() {
       this.$axios.get(
-        'home/load?keyword='+this.value
+        'home/load?keyword='+this.value + '&uid=' + localStorage.getItem('uid')
       ).then(res=>{
-      
+
       this.books=res.data.data
       }).catch();
-    
+
     },
 
     biaoqian: function(res) {
       switch (res) {
-        case 0:
-          this.$router.push("/fenlei");
-          break;
+        // case 0:
+        //   this.$router.push("/fenlei");
+        //   break;
         case 1:
           this.$router.push("/mianfei");
           break;
@@ -92,14 +92,23 @@ export default {
     },
     shoucang(obj) {
       this.$axios
-        .get("home/shoucang",{params:{token:localStorage.getItem('token'),bid:obj}})
+        .post("home/shoucang",{userid:localStorage.getItem('uid'),bookid:obj})
         .then(res => {
-          if (res.data.status === 200) {
-            alert("收藏成功");
+          if (res.data.code === 0) {
+            this.$axios
+              .get("home/load")
+              .then(res => {
+                this.books = res.data.data;
+                console.log(res.data.data);
+              })
+              .catch();
+            alert("借閲成功");
+          }else{
+            alert(res.data.msg);
           }
         })
         .catch(err => {
-          alert("添加失败");
+          alert("借阅失败");
         });
     }
   }
@@ -114,8 +123,8 @@ export default {
   color: #999;
 }
 .el-card {
-  width: 380px;
-
+  width:90%;
+  margin:0 auto;
   height: 400px;
 }
 .bottom {
@@ -153,6 +162,6 @@ export default {
   clear: both;
 }
 .el-row {
-  margin-left: 80px;
+  margin: auto;
 }
 </style>

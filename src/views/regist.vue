@@ -5,9 +5,9 @@
             <van-col span="20"> <h2>用户注册</h2></van-col>
             <van-col span="2"></van-col>
         </van-row>
-       
+
         <van-form @submit="onSubmit">
-            <div class="titleImg" title="选择头像" @click="touxiang">
+            <div class="titleImg" title="选择头像">
                  <van-image
                     round
                     width="10rem"
@@ -15,7 +15,7 @@
                     src="https://img01.yzcdn.cn/vant/cat.jpeg"
                     />
             </div>
-          
+
             <van-field
                 v-model="nickname"
                 name="昵称"
@@ -40,19 +40,26 @@
                 :rules="[{ required: true, message: '请再次填写密码' }]"
             />
              <van-field
-                v-model="tel"
-                name="手机号"
-                label="手机号"
-                placeholder="手机号"
-                :rules="[{ required: true, message: '请填写手机号用作登录名' }]"
+                v-model="age"
+                name="年龄"
+                label="年龄"
+                placeholder="年龄"
+                :rules="[{ required: true, message: '请填写年龄' }]"
             />
-             <van-field
-                v-model="email"
-                name="电子邮箱"
-                label="电子邮箱"
-                placeholder="电子邮箱"
-                :rules="[{ required: true, message: '请填写电子邮箱' }]"
-            />
+<!--             <van-field-->
+<!--                v-model="tel"-->
+<!--                name="手机号"-->
+<!--                label="手机号"-->
+<!--                placeholder="手机号"-->
+<!--                :rules="[{ required: true, message: '请填写手机号用作登录名' }]"-->
+<!--            />-->
+<!--             <van-field-->
+<!--                v-model="email"-->
+<!--                name="电子邮箱"-->
+<!--                label="电子邮箱"-->
+<!--                placeholder="电子邮箱"-->
+<!--                :rules="[{ required: true, message: '请填写电子邮箱' }]"-->
+<!--            />-->
             <!-- <van-datetime-picker
                 v-model="birth"
                 type="date"
@@ -66,7 +73,7 @@
         </van-form>
          <br><br><br>
     </div>
-  
+
 </template>
 <script>
 export default {
@@ -77,6 +84,7 @@ export default {
             tel: '',
             email: '',
             birth: '',
+            age: '',
             // minDate: new Date(1989,0,1),
             // maxDate: new Date(),
             // currentDate: new Date(2021, 0, 1)
@@ -86,29 +94,25 @@ export default {
          back(){
             this.$router.push("/admin");
         },
-        
+
         onSubmit(values) {
-            
+
             this.$axios
-            .post('regist',{
+            .post('users/register',{
                 nickname:this.nickname,
-                tel:this.tel,
                 password:this.password,
-                email:this.email,
+                age:this.age,
             })
             .then(res=>{
-                if(res.data.statusCode===200){
+                if(res.data.code == 0){
                     localStorage.setItem("nickname",this.nickname);
                     localStorage.setItem("password",this.password);
-                    localStorage.setItem("email",this.email);
-                    localStorage.setItem("tel",this.tel);
-                    localStorage.setItem("birth",this.birth);
                     // 跳转至登录
-                    this.$router.push("/login"); 
+                    this.$router.push("/login");
+                } else {
+                  alert(res.data.msg);
                 }
-                if(res.data.statusCode===400){
-                    alert(res.data.msg);
-                }
+
             })
             .catch(error=>{
                 console.log(error);

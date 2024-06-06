@@ -14,17 +14,17 @@
     <van-tabbar v-model="active" active-color="#ee0a24" inactive-color="#000">
   <van-tabbar-item icon="home-o" to="/">主页</van-tabbar-item>
   <van-tabbar-item icon="coupon-o"  to="/bookrack">书架</van-tabbar-item>
-  <van-tabbar-item icon="fire-o"  to="/found">圈子</van-tabbar-item>
-  <van-tabbar-item icon="shop-collect" to="/order">购物车</van-tabbar-item>
+<!--  <van-tabbar-item icon="fire-o"  to="/found">圈子</van-tabbar-item>-->
+<!--  <van-tabbar-item icon="shop-collect" to="/order">购物车</van-tabbar-item>-->
   <van-tabbar-item icon="setting-o" to="/admin">设置</van-tabbar-item>
 </van-tabbar>
-     
+
   </div>
 </template>
 
 <script>
 export default {
-   
+
   name: 'App'
   ,data() {
     return {
@@ -34,9 +34,9 @@ export default {
   methods: {
     onClickLeft() {
      this.$router.go(-1)
-      
+
     },
-    
+
   },
 
 }
@@ -50,6 +50,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 10px;
-  
+
 }
 </style>
